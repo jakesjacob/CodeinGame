@@ -14,8 +14,6 @@ int main()
 {
     int n; // the number of temperatures to analyse
 
-    int closestPos = 0;
-    int closestNeg = 0;
     int closest = 0;
     cin >> n;
     cin.ignore();
@@ -29,39 +27,20 @@ int main()
         temps[i] = t;
     }
 
-    int size = sizeof(temps) / sizeof(temps[0]);
-    sort(temps, temps + size);
-
-    for (int i = 1; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
-        if (temps[0] > 0)
+        if (closest == 0)
         {
-            closestPos = temps[0];
+            closest = temps[i];
         }
-        else if (temps[0] < 0)
+        else if (temps[i] > 0 && temps[i] <= abs(closest))
         {
-            closestNeg = temps[0];
+            closest = temps[i];
         }
-
-        if (temps[i] > 0 && temps[i] < temps[i - 1])
+        else if (temps[i] < 0 && -temps[i] < abs(closest))
         {
-            closestPos = temps[i];
+            closest = temps[i];
         }
-        else if (temps[i] < 0 && temps[i] > temps[i - 1])
-        {
-            closestNeg = temps[i];
-        }
-    }
-
-    int math = closestPos + closestNeg;
-
-    if (math >= 0)
-    {
-        closest = closestNeg;
-    }
-    else if (math < 0)
-    {
-        closest = closestPos;
     }
 
     // Write an answer using cout. DON'T FORGET THE "<< endl"
